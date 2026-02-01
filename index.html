@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EdulearnOS Search</title>
+  <title>EdulearnOS</title>
 
   <!-- Font Awesome -->
   <link
@@ -12,90 +12,79 @@
   />
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-
-      /* Beach wallpaper */
+      font-family: "DM Sans", system-ui, sans-serif;
       background:
-        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
         url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
-
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
+      color: #eaf7ff;
     }
 
     .container {
-      position: relative;
+      width: 420px;
+      padding: 2.2rem;
+      border-radius: 20px;
+      background: rgba(15, 35, 55, 0.75);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
       text-align: center;
-      padding: 2rem;
-      border-radius: 16px;
-      backdrop-filter: blur(10px);
-      background: rgba(0, 0, 0, 0.35);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     .logo {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      width: 80px;
+      font-size: 3.2rem;
+      color: #7dd3fc;
+      margin-bottom: 0.5rem;
     }
 
-    .history-icon {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      font-size: 1.5rem;
-      cursor: pointer;
+    h1 {
+      margin: 0 0 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
-    .history-dropdown {
-      position: absolute;
-      top: 3.5rem;
-      right: 1rem;
-      background: rgba(0,0,0,0.55);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-      text-align: left;
-      z-index: 10;
+    .search-box {
+      position: relative;
     }
 
-    .history-dropdown.visible {
-      display: block;
+    input {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      background: rgba(0, 0, 0, 0.45);
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
     }
 
-    .history-item {
-      margin: 0.3rem 0;
-      font-size: 0.9rem;
-      cursor: pointer;
+    input::placeholder {
+      color: rgba(255,255,255,0.7);
     }
 
     .engine-switcher {
-      margin-bottom: 1.5rem;
+      margin: 1.2rem 0;
     }
 
     select {
+      width: 100%;
       padding: 0.6rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
+      border-radius: 10px;
       background: rgba(0,0,0,0.45);
       color: white;
       border: none;
       outline: none;
+      font-size: 1rem;
     }
 
     select option {
@@ -104,46 +93,27 @@
 
     .quicklinks {
       display: flex;
+      justify-content: center;
       gap: 1rem;
-      margin-bottom: 2rem;
+      margin-top: 1.5rem;
     }
 
     .quicklink {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0, 0, 0, 0.45);
       display: flex;
-      justify-content: center;
       align-items: center;
-      text-decoration: none;
+      justify-content: center;
       color: white;
-      font-size: 1.2rem;
-      transition: background 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     .quicklink:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.1);
-    }
-
-    form {
-      width: 300px;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.75rem 1.2rem;
-      border-radius: 50px;
-      border: none;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    input::placeholder {
-      color: rgba(255,255,255,0.8);
+      transform: scale(1.15);
+      background: rgba(255, 255, 255, 0.25);
     }
 
     button {
@@ -154,104 +124,72 @@
 
 <body>
   <div class="container">
-    <img src="logo.png" alt="EdulearnOS Logo" class="logo" />
+    <!-- Wave Logo -->
+    <i class="fas fa-water logo"></i>
 
-    <i class="fas fa-history history-icon" id="historyToggle"></i>
-    <div class="history-dropdown" id="historyDropdown"></div>
+    <h1>EdulearnOS</h1>
 
-    <div class="engine-switcher">
-      <select id="engineSelect">
-        <option value="https://searx.be/search?q=">Searx</option>
-        <option value="https://html.duckduckgo.com/html?q=" selected>DuckDuckGo</option>
-        <option value="https://search.brave.com/search?q=" selected>Brave</option>
-        <option value="https://www.google.com/search?q=">Google</option>
-        <option value="https://www.startpage.com/do/search?q=">Startpage</option>
-        <option value="https://www.qwant.com/?q=">Qwant</option>
-      </select>
-    </div>
+    <!-- Search Form -->
+    <form id="searchForm">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search or enter a URL…"
+          autocomplete="off"
+          required
+        />
+      </div>
 
+      <div class="engine-switcher">
+        <select id="engineSelect">
+          <option value="https://html.duckduckgo.com/html?q=" selected>DuckDuckGo</option>
+          <option value="https://search.brave.com/search?q=">Brave</option>
+          <option value="https://www.google.com/search?q=">Google</option>
+          <option value="https://www.startpage.com/do/search?q=">Startpage</option>
+          <option value="https://www.qwant.com/?q=">Qwant</option>
+        </select>
+      </div>
+
+      <button type="submit">Go</button>
+    </form>
+
+    <!-- Quicklinks -->
     <div class="quicklinks">
-      <a href="https://poki.com" class="quicklink" title="Poki"><i class="fas fa-gamepad"></i></a>
       <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
       <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://crazygames.com" class="quicklink" title="CrazyGames"><i class="fas fa-ghost"></i></a>
-      <a href="https://c.ai" class="quicklink" title="Character.AI"><i class="fas fa-comment-dots"></i></a>
+      <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
+      <a href="https://poki.com" class="quicklink" title="Games"><i class="fas fa-gamepad"></i></a>
     </div>
-
-    <form id="searchForm">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search EdulearnOS…"
-        autocomplete="off"
-        required
-      />
-      <button type="submit">Search</button>
-    </form>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const input = document.getElementById('searchInput');
-      const form = document.getElementById('searchForm');
-      const engineSelect = document.getElementById('engineSelect');
-      const historyToggle = document.getElementById('historyToggle');
-      const historyDropdown = document.getElementById('historyDropdown');
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const engine = document.getElementById("engineSelect");
 
-      const STORAGE_KEY = 'edulearnos-search';
+    input.focus();
 
-      input.focus();
+    function isURL(text) {
+      return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
+             text.startsWith("http://") ||
+             text.startsWith("https://");
+    }
 
-      function updateHistory() {
-        historyDropdown.innerHTML = '';
-        const history = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      let value = input.value.trim();
+      if (!value) return;
 
-        if (!history.length) {
-          historyDropdown.innerHTML =
-            '<div class="history-item">No history</div>';
-          return;
+      if (isURL(value)) {
+        if (!value.startsWith("http://") && !value.startsWith("https://")) {
+          value = "https://" + value;
         }
-
-        history.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'history-item';
-          div.textContent = item;
-          div.onclick = () => {
-            input.value = item;
-            historyDropdown.classList.remove('visible');
-            input.focus();
-          };
-          historyDropdown.appendChild(div);
-        });
-      }
-
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const query = input.value.trim();
-        if (!query) return;
-
-        let history = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        if (!history.includes(query)) {
-          history.unshift(query);
-          if (history.length > 20) history.pop();
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-        }
-
+        window.location.href = value;
+      } else {
         window.location.href =
-          engineSelect.value + encodeURIComponent(query);
-      });
-
-      historyToggle.addEventListener('click', () => {
-        historyDropdown.classList.toggle('visible');
-        updateHistory();
-      });
-
-      document.addEventListener('click', e => {
-        if (!historyDropdown.contains(e.target) &&
-            e.target !== historyToggle) {
-          historyDropdown.classList.remove('visible');
-        }
-      });
+          engine.value + encodeURIComponent(value);
+      }
     });
   </script>
 </body>
