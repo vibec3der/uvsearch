@@ -15,7 +15,7 @@ Slightly modified by ChatGPT.
 ---
 
 ## Usage
-1. Copy the **URL** of this hosted search into your static V2 code (`tabs.mjs`).  
+1. Copy the **URL** of this hosted search and replace your ('uvsearch.rhw.one') with ('vibec3der.github.io/uvsearch') in (`tabs.mjs`).  
 2. That’s it :)
 
 ---
