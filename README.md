@@ -16,7 +16,8 @@ Slightly modified by ChatGPT.
 
 ## Usage
 1. Copy the **URL** of this hosted search and replace everywhere thats says (`uvsearch.rhw.one`) with (`vibec3der.github.io/uvsearch`) in (`tabs.mjs`).  
-2. That’s it :)
+2. That’s it :) 
+3. Feel Free to **Customize** it to your liking!
 
 ---
 
