@@ -1,198 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EdulearnOS Browser</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+	<title>EdulearnOS - Secure Browser & Educational Tools</title>
+	<meta name="description"
+		content="EdulearnOS is a free, web-based operating system environment designed for education. Access secure browsing, coding tools, and productivity apps directly in your browser.">
+	<meta name="keywords"
+		content="web os, edulearn, browser start page, educational tools, online desktop, secure browser">
+	<meta name="author" content="Edulearn Systems">
+	<meta name="theme-color" content="#5e97f6">
 
-  <style>
-    :root {
-        /* EDULEARN OS THEME COLORS */
-        --primary: #5e97f6;
-        --primary-hover: #4a90e2;
-        --accent: #00d2ff;
-        
-        --text: #e0e0e0;
-        --text-muted: #aaaaaa;
-        
-        --bg: #121212;         /* Main Background */
-        --bg-secondary: #1e1e1e; /* Input Background */
-        --surface: #252525;    /* Card/Container Background */
-        --surface-hover: #2f2f2f;
-        
-        --border: #333333;
-        
-        --shadow-lg: 0 10px 30px rgba(0,0,0,0.5);
-        --radius: 12px;
-    }
+	<meta property="og:title" content="EdulearnOS Browser">
+	<meta property="og:description" content="Secure, fast, and focused web browsing environment for education.">
+	<meta property="og:type" content="website">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    * {
-      box-sizing: border-box;
-    }
+	<style>
+		:root {
+			/* EDULEARN OS THEME COLORS */
+			--primary: #5e97f6;
+			--primary-hover: #4a90e2;
+			--accent: #00d2ff;
 
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
-      
-      /* EdulearnOS Main Wallpaper (Vestrahorn Iceland) */
-      background-image: url('https://www.usnews.com/object/image/00000162-f3a3-d0d5-a57f-fbf33c300000/3-vestrahorn-iceland.jpg?update-time=1745871301820&size=responsive970');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      
-      color: var(--text);
-    }
+			--text: #e0e0e0;
+			--text-muted: #aaaaaa;
 
-    .container {
-      width: 480px;
-      padding: 2.5rem;
-      border-radius: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px); /* Added blur for glass effect */
-    }
+			--bg: #121212;
+			/* Main Background */
+			--bg-secondary: #1e1e1e;
+			/* Input Background */
+			--surface: #252525;
+			/* Card/Container Background */
+			--surface-hover: #2f2f2f;
 
-    /* Top accent line */
-    .container::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, var(--primary), var(--accent));
-    }
+			--border: #333333;
 
-    .logo {
-      font-size: 3.2rem;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-      filter: drop-shadow(0 2px 10px rgba(94, 151, 246, 0.3));
-    }
+			--shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+			--radius: 12px;
+		}
 
-    h1 {
-      margin: 0 0 2rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1.5rem;
-      color: var(--text);
-    }
+		* {
+			box-sizing: border-box;
+		}
 
-    .search-box {
-      position: relative;
-      margin-bottom: 1rem;
-    }
+		body {
+			margin: 0;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
 
-    input {
-      width: 100%;
-      padding: 0.85rem 1.2rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--bg-secondary);
-      color: var(--text);
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
+			/* 1. DARK FALLBACK COLOR (Prevents white flash) */
+			background-color: var(--bg);
 
-    input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(94, 151, 246, 0.2);
-    }
+			/* 2. PROXY-FRIENDLY WALLPAPER (Unsplash Vestrahorn) */
+			background-image: url('https://images.unsplash.com/photo-1531303867-08051783515d?q=80&w=2560&auto=format&fit=crop');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
 
-    input::placeholder {
-      color: var(--text-muted);
-    }
+			color: var(--text);
+		}
 
-    .engine-switcher {
-      margin-bottom: 2rem;
-    }
+		.container {
+			width: 480px;
+			padding: 2.5rem;
+			border-radius: 16px;
+			background: rgba(37, 37, 37, 0.85);
+			/* Glass effect base */
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow-lg);
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+			backdrop-filter: blur(12px);
+			/* Strong blur */
+			-webkit-backdrop-filter: blur(12px);
+		}
 
-    select {
-      width: 100%;
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius);
-      background: var(--bg-secondary);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      outline: none;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-family: inherit;
-      transition: border 0.2s;
-    }
+		/* Top accent line */
+		.container::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 3px;
+			background: linear-gradient(90deg, var(--primary), var(--accent));
+		}
 
-    select:hover, select:focus {
-        border-color: #555;
-        color: var(--text);
-    }
+		.logo {
+			font-size: 3.5rem;
+			background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			margin-bottom: 0.5rem;
+			filter: drop-shadow(0 2px 10px rgba(94, 151, 246, 0.3));
+		}
 
-    select option {
-      background: var(--surface);
-      color: var(--text);
-    }
+		h1 {
+			margin: 0 0 2rem;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+			font-size: 1.6rem;
+			color: var(--text);
+			text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+		}
 
-    .quicklinks {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      margin-top: 1rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
+		.search-box {
+			position: relative;
+			margin-bottom: 1rem;
+		}
 
-    .quicklink {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      font-size: 1.2rem;
-    }
+		input {
+			width: 100%;
+			padding: 0.9rem 1.2rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			background: var(--bg-secondary);
+			color: var(--text);
+			font-size: 1rem;
+			outline: none;
+			transition: all 0.2s ease;
+			font-family: inherit;
+		}
 
-    .quicklink:hover {
-      transform: translateY(-3px);
-      background: var(--surface-hover);
-      color: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
+		input:focus {
+			border-color: var(--primary);
+			box-shadow: 0 0 0 3px rgba(94, 151, 246, 0.25);
+			background: #1a1a1a;
+		}
 
-    button {
-      display: none;
-    }
-  </style>
+		input::placeholder {
+			color: var(--text-muted);
+		}
+
+		.engine-switcher {
+			margin-bottom: 2rem;
+		}
+
+		select {
+			width: 100%;
+			padding: 0.7rem 1rem;
+			border-radius: var(--radius);
+			background: var(--bg-secondary);
+			color: var(--text-muted);
+			border: 1px solid var(--border);
+			outline: none;
+			font-size: 0.9rem;
+			cursor: pointer;
+			font-family: inherit;
+			transition: all 0.2s;
+		}
+
+		select:hover,
+		select:focus {
+			border-color: #555;
+			color: var(--text);
+		}
+
+		select option {
+			background: var(--surface);
+			color: var(--text);
+			padding: 10px;
+		}
+
+		.quicklinks {
+			display: flex;
+			justify-content: center;
+			gap: 1.2rem;
+			margin-top: 1rem;
+			padding-top: 1.5rem;
+			border-top: 1px solid var(--border);
+		}
+
+		.quicklink {
+			width: 48px;
+			height: 48px;
+			border-radius: 12px;
+			background: var(--bg-secondary);
+			border: 1px solid var(--border);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-muted);
+			text-decoration: none;
+			transition: all 0.2s ease;
+			font-size: 1.3rem;
+		}
+
+		.quicklink:hover {
+			transform: translateY(-4px);
+			background: var(--surface-hover);
+			color: var(--primary);
+			border-color: var(--primary);
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+		}
+
+		button {
+			display: none;
+		}
+	</style>
 </head>
 
 <body>
-  <div class="container">
-    <i class="fas fa-water logo"></i>
+	<div class="container">
+		<i class="fas fa-water logo"></i>
 
-    <h1>EdulearnOS</h1>
+		<h1>EdulearnOS</h1>
 
-    <form id="searchForm">
-      <div class="search-box">
-        <input
+		<form id="searchForm">
+			<div class="search-box">
+				<input
           type="text"
           id="searchInput"
           placeholder="Search or type a URL..."
@@ -201,40 +224,43 @@
         />
       </div>
 
-      <div class="engine-switcher">
-        <select id="engineSelect">
+				<div class="engine-switcher">
+					<select id="engineSelect">
           <option value="https://search.brave.com/search?q=" selected>Brave Search</option>
-          <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
           <option value="https://www.google.com/search?q=">Google</option>
+          <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
           <option value="https://www.startpage.com/do/search?q=">Startpage</option>
           <option value="https://www.qwant.com/?q=">Qwant</option>
         </select>
-      </div>
+				</div>
 
-      <button type="submit">Go</button>
-    </form>
+				<button type="submit">Go</button>
+		</form>
 
-    <div class="quicklinks">
-      <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
-      <a href="https://astra.pxi-fusion.com" class="quicklink" title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
-      <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
-    </div>
-  </div>
+		<div class="quicklinks">
+			<a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
+			<a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
+			<a href="https://astra.pxi-fusion.com" class="quicklink"
+				title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
+			<a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
+			<a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
+		</div>
+	</div>
 
-  <script>
-    const form = document.getElementById("searchForm");
+	<script>
+		const form = document.getElementById("searchForm");
     const input = document.getElementById("searchInput");
     const engine = document.getElementById("engineSelect");
 
+    // Auto-focus input on load
     input.focus();
 
     function isURL(text) {
-      // Simple regex to check for domain-like strings
+      // Check for common URL patterns
       return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
              text.startsWith("http://") ||
-             text.startsWith("https://");
+             text.startsWith("https://") ||
+             text.startsWith("about:");
     }
 
     form.addEventListener("submit", e => {
@@ -243,7 +269,7 @@
       if (!value) return;
 
       if (isURL(value)) {
-        if (!value.startsWith("http://") && !value.startsWith("https://")) {
+        if (!value.startsWith("http://") && !value.startsWith("https://") && !value.startsWith("about:")) {
           value = "https://" + value;
         }
         window.location.href = value;
@@ -252,6 +278,7 @@
           engine.value + encodeURIComponent(value);
       }
     });
-  </script>
+	</script>
 </body>
+
 </html>
