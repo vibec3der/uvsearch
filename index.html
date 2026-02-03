@@ -2,283 +2,256 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<title>EdulearnOS - Secure Browser & Educational Tools</title>
-	<meta name="description"
-		content="EdulearnOS is a free, web-based operating system environment designed for education. Access secure browsing, coding tools, and productivity apps directly in your browser.">
-	<meta name="keywords"
-		content="web os, edulearn, browser start page, educational tools, online desktop, secure browser">
-	<meta name="author" content="Edulearn Systems">
-	<meta name="theme-color" content="#5e97f6">
+    <title>Edubrowser</title>
+    <meta name="theme-color" content="#101010">
 
-	<meta property="og:title" content="EdulearnOS Browser">
-	<meta property="og:description" content="Secure, fast, and focused web browsing environment for education.">
-	<meta property="og:type" content="website">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-	<style>
-		:root {
-			/* EDULEARN OS THEME COLORS */
-			--primary: #5e97f6;
-			--primary-hover: #4a90e2;
-			--accent: #00d2ff;
+    <style>
+        :root {
+            /* EDULEARN LITE / MIDNIGHT THEME */
+            --bg-dark: #050505;
+            --surface: #111111;
+            --border: #333333;
+            --accent: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            
+            /* GLOWS */
+            --glow-white: 0 0 15px rgba(255, 255, 255, 0.4);
+            --glow-text: 0 0 10px rgba(255, 255, 255, 0.5);
+            --glow-input: 0 0 12px rgba(255, 255, 255, 0.1);
+            
+            --radius: 12px;
+        }
 
-			--text: #e0e0e0;
-			--text-muted: #aaaaaa;
+        * {
+            box-sizing: border-box;
+        }
 
-			--bg: #121212;
-			/* Main Background */
-			--bg-secondary: #1e1e1e;
-			/* Input Background */
-			--surface: #252525;
-			/* Card/Container Background */
-			--surface-hover: #2f2f2f;
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            
+            /* MATCHING LITE THEME BACKGROUND */
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            color: var(--text-main);
+            overflow: hidden;
+        }
 
-			--border: #333333;
+        .container {
+            width: 500px;
+            padding: 3rem;
+            border-radius: 16px;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
 
-			--shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
-			--radius: 12px;
-		}
+        /* Top white glow accent */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            opacity: 0.5;
+        }
 
-		* {
-			box-sizing: border-box;
-		}
+        h1 {
+            margin: 0 0 2.5rem;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--text-main);
+            text-shadow: var(--glow-text);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
 
-		body {
-			margin: 0;
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+        .search-box {
+            position: relative;
+            margin-bottom: 1rem;
+        }
 
-			/* 1. DARK FALLBACK COLOR (Prevents white flash) */
-			background-color: var(--bg);
+        input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: #0a0a0a;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
 
-			/* 2. PROXY-FRIENDLY WALLPAPER (Unsplash Vestrahorn) */
-			background-image: url('https://images.unsplash.com/photo-1531303867-08051783515d?q=80&w=2560&auto=format&fit=crop');
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: var(--glow-input);
+            background: #000;
+        }
 
-			color: var(--text);
-		}
+        input::placeholder {
+            color: #666;
+        }
 
-		.container {
-			width: 480px;
-			padding: 2.5rem;
-			border-radius: 16px;
-			background: rgba(37, 37, 37, 0.85);
-			/* Glass effect base */
-			border: 1px solid var(--border);
-			box-shadow: var(--shadow-lg);
-			text-align: center;
-			position: relative;
-			overflow: hidden;
-			backdrop-filter: blur(12px);
-			/* Strong blur */
-			-webkit-backdrop-filter: blur(12px);
-		}
+        .engine-switcher {
+            margin-bottom: 2rem;
+        }
 
-		/* Top accent line */
-		.container::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 3px;
-			background: linear-gradient(90deg, var(--primary), var(--accent));
-		}
+        select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius);
+            background: #0a0a0a;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            outline: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
 
-		.logo {
-			font-size: 3.5rem;
-			background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			margin-bottom: 0.5rem;
-			filter: drop-shadow(0 2px 10px rgba(94, 151, 246, 0.3));
-		}
+        select:hover,
+        select:focus {
+            border-color: #555;
+            color: var(--text-main);
+        }
 
-		h1 {
-			margin: 0 0 2rem;
-			font-weight: 600;
-			letter-spacing: 0.5px;
-			font-size: 1.6rem;
-			color: var(--text);
-			text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-		}
+        select option {
+            background: #111;
+            color: white;
+            padding: 10px;
+        }
 
-		.search-box {
-			position: relative;
-			margin-bottom: 1rem;
-		}
+        .quicklinks {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
 
-		input {
-			width: 100%;
-			padding: 0.9rem 1.2rem;
-			border-radius: var(--radius);
-			border: 1px solid var(--border);
-			background: var(--bg-secondary);
-			color: var(--text);
-			font-size: 1rem;
-			outline: none;
-			transition: all 0.2s ease;
-			font-family: inherit;
-		}
+        .quicklink {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.4rem;
+        }
 
-		input:focus {
-			border-color: var(--primary);
-			box-shadow: 0 0 0 3px rgba(94, 151, 246, 0.25);
-			background: #1a1a1a;
-		}
+        .quicklink:hover {
+            transform: translateY(-5px);
+            background: var(--accent);
+            color: #000; /* Inverted contrast on hover */
+            border-color: var(--accent);
+            box-shadow: var(--glow-white);
+        }
 
-		input::placeholder {
-			color: var(--text-muted);
-		}
+        button {
+            display: none;
+        }
 
-		.engine-switcher {
-			margin-bottom: 2rem;
-		}
-
-		select {
-			width: 100%;
-			padding: 0.7rem 1rem;
-			border-radius: var(--radius);
-			background: var(--bg-secondary);
-			color: var(--text-muted);
-			border: 1px solid var(--border);
-			outline: none;
-			font-size: 0.9rem;
-			cursor: pointer;
-			font-family: inherit;
-			transition: all 0.2s;
-		}
-
-		select:hover,
-		select:focus {
-			border-color: #555;
-			color: var(--text);
-		}
-
-		select option {
-			background: var(--surface);
-			color: var(--text);
-			padding: 10px;
-		}
-
-		.quicklinks {
-			display: flex;
-			justify-content: center;
-			gap: 1.2rem;
-			margin-top: 1rem;
-			padding-top: 1.5rem;
-			border-top: 1px solid var(--border);
-		}
-
-		.quicklink {
-			width: 48px;
-			height: 48px;
-			border-radius: 12px;
-			background: var(--bg-secondary);
-			border: 1px solid var(--border);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: var(--text-muted);
-			text-decoration: none;
-			transition: all 0.2s ease;
-			font-size: 1.3rem;
-		}
-
-		.quicklink:hover {
-			transform: translateY(-4px);
-			background: var(--surface-hover);
-			color: var(--primary);
-			border-color: var(--primary);
-			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-		}
-
-		button {
-			display: none;
-		}
-	</style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 
 <body>
-	<div class="container">
-		<i class="fas fa-water logo"></i>
+    <div class="container">
+        <h1>Edulearn<span style="font-weight:300; opacity:0.8;">OS</span></h1>
 
-		<h1>EdulearnOS</h1>
+        <form id="searchForm">
+            <div class="search-box">
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search or type a URL..."
+                  autocomplete="off"
+                  required
+                />
+            </div>
 
-		<form id="searchForm">
-			<div class="search-box">
-				<input
-          type="text"
-          id="searchInput"
-          placeholder="Search or type a URL..."
-          autocomplete="off"
-          required
-        />
-      </div>
+            <div class="engine-switcher">
+                <select id="engineSelect">
+                  <option value="https://search.brave.com/search?q=" selected>Brave Search</option>
+                  <option value="https://www.google.com/search?q=">Google</option>
+                  <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
+                  <option value="https://www.startpage.com/do/search?q=">Startpage</option>
+                  <option value="https://www.qwant.com/?q=">Qwant</option>
+                </select>
+            </div>
 
-				<div class="engine-switcher">
-					<select id="engineSelect">
-          <option value="https://search.brave.com/search?q=" selected>Brave Search</option>
-          <option value="https://www.google.com/search?q=">Google</option>
-          <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
-          <option value="https://www.startpage.com/do/search?q=">Startpage</option>
-          <option value="https://www.qwant.com/?q=">Qwant</option>
-        </select>
-				</div>
+            <button type="submit">Go</button>
+        </form>
 
-				<button type="submit">Go</button>
-		</form>
+        <div class="quicklinks">
+            <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
+            <a href="https://astra.pxi-fusion.com" class="quicklink" title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
+            <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+    </div>
 
-		<div class="quicklinks">
-			<a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
-			<a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
-			<a href="https://astra.pxi-fusion.com" class="quicklink"
-				title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
-			<a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-			<a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
-		</div>
-	</div>
+    <script>
+        const form = document.getElementById("searchForm");
+        const input = document.getElementById("searchInput");
+        const engine = document.getElementById("engineSelect");
 
-	<script>
-		const form = document.getElementById("searchForm");
-    const input = document.getElementById("searchInput");
-    const engine = document.getElementById("engineSelect");
+        // Auto-focus input on load
+        input.focus();
 
-    // Auto-focus input on load
-    input.focus();
-
-    function isURL(text) {
-      // Check for common URL patterns
-      return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
-             text.startsWith("http://") ||
-             text.startsWith("https://") ||
-             text.startsWith("about:");
-    }
-
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      let value = input.value.trim();
-      if (!value) return;
-
-      if (isURL(value)) {
-        if (!value.startsWith("http://") && !value.startsWith("https://") && !value.startsWith("about:")) {
-          value = "https://" + value;
+        function isURL(text) {
+          // Check for common URL patterns
+          return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
+                 text.startsWith("http://") ||
+                 text.startsWith("https://") ||
+                 text.startsWith("about:");
         }
-        window.location.href = value;
-      } else {
-        window.location.href =
-          engine.value + encodeURIComponent(value);
-      }
-    });
-	</script>
-</body>
 
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+          let value = input.value.trim();
+          if (!value) return;
+
+          if (isURL(value)) {
+            if (!value.startsWith("http://") && !value.startsWith("https://") && !value.startsWith("about:")) {
+              value = "https://" + value;
+            }
+            window.location.href = value;
+          } else {
+            window.location.href =
+              engine.value + encodeURIComponent(value);
+          }
+        });
+    </script>
+</body>
 </html>
