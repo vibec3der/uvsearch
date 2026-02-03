@@ -2,244 +2,336 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Eduviolet</title>
-    <meta name="theme-color" content="#101010">
+	<title>Eduviolet</title>
+	<meta name="theme-color" content="#050505">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            /* EDULEARN LITE / MIDNIGHT THEME */
-            --bg-dark: #050505;
-            --surface: #111111;
-            --border: #333333;
-            --accent: #ffffff;
-            --text-main: #ffffff;
-            --text-muted: #aaaaaa;
-            
-            /* GLOWS */
-            --glow-white: 0 0 15px rgba(255, 255, 255, 0.4);
-            --glow-text: 0 0 10px rgba(255, 255, 255, 0.5);
-            --glow-input: 0 0 12px rgba(255, 255, 255, 0.1);
-            
-            --radius: 12px;
-        }
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-        * {
-            box-sizing: border-box;
-        }
+	<style>
+		:root {
+			/* THEME VARIABLES */
+			--bg-dark: #050505;
+			--surface: rgba(20, 20, 20, 0.6);
+			--surface-hover: rgba(40, 40, 40, 0.8);
+			--border: rgba(255, 255, 255, 0.1);
+			--border-focus: rgba(255, 255, 255, 0.3);
 
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
-            
-            /* MATCHING LITE THEME BACKGROUND */
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-            color: var(--text-main);
-            overflow: hidden;
-            position: relative; /* Needed for particles */
-        }
+			--text-main: #ffffff;
+			--text-muted: #888888;
 
-        /* --- PARTICLES CANVAS --- */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.6;
-        }
+			--accent-glow: 0 0 20px rgba(255, 255, 255, 0.15);
+			--input-bg: rgba(0, 0, 0, 0.5);
+		}
 
-        .container {
-            width: 500px;
-            padding: 3rem;
-            border-radius: 16px;
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid var(--border);
-            text-align: center;
-            position: relative;
-            z-index: 10; /* Above particles */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 0.8s ease-out;
-        }
+		* {
+			box-sizing: border-box;
+			outline: none;
+		}
 
-        /* Top white glow accent */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #fff, transparent);
-            opacity: 0.5;
-        }
+		body {
+			margin: 0;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: 'Inter', sans-serif;
+			background-color: var(--bg-dark);
+			background-image: radial-gradient(circle at center, #111111 0%, #000000 100%);
+			color: var(--text-main);
+			overflow: hidden;
+			position: relative;
+		}
 
-        h1 {
-            margin: 0 0 2.5rem;
-            font-weight: 700;
-            font-size: 2.5rem;
-            color: var(--text-main);
-            text-shadow: var(--glow-text);
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
+		/* --- BACKGROUND PARTICLES --- */
+		#particles-js {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			pointer-events: none;
+			opacity: 0.4;
+			/* More subtle */
+		}
 
-        .search-box {
-            position: relative;
-            margin-bottom: 1rem;
-        }
+		/* --- MAIN CARD --- */
+		.container {
+			width: 100%;
+			max-width: 520px;
+			padding: 3.5rem 2.5rem;
+			border-radius: 24px;
+			background: var(--surface);
+			border: 1px solid var(--border);
+			text-align: center;
+			position: relative;
+			z-index: 10;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+			animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+		}
 
-        input {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: #0a0a0a;
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
+		/* Elegant top highlight */
+		.container::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 24px;
+			padding: 1px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+			-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			pointer-events: none;
+		}
 
-        input:focus {
-            border-color: var(--accent);
-            box-shadow: var(--glow-input);
-            background: #000;
-        }
+		h1 {
+			margin: 0 0 0.5rem;
+			font-weight: 800;
+			font-size: 3rem;
+			letter-spacing: -1.5px;
+			background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+		}
 
-        input::placeholder {
-            color: #666;
-        }
+		.subtitle {
+			margin-bottom: 3rem;
+			color: var(--text-muted);
+			font-size: 0.95rem;
+			font-weight: 400;
+			letter-spacing: 0.5px;
+		}
 
-        .engine-switcher {
-            margin-bottom: 2rem;
-        }
+		/* --- SEARCH SECTION --- */
+		.search-wrapper {
+			position: relative;
+			margin-bottom: 1.5rem;
+			transition: transform 0.2s ease;
+		}
 
-        select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: var(--radius);
-            background: #0a0a0a;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            outline: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
+		.search-wrapper:focus-within {
+			transform: scale(1.02);
+		}
 
-        select:hover,
-        select:focus {
-            border-color: #555;
-            color: var(--text-main);
-        }
+		.search-box {
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
 
-        select option {
-            background: #111;
-            color: white;
-            padding: 10px;
-        }
+		.search-icon {
+			position: absolute;
+			left: 20px;
+			color: var(--text-muted);
+			pointer-events: none;
+			font-size: 1.1rem;
+			transition: color 0.3s;
+		}
 
-        .quicklinks {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
+		input {
+			width: 100%;
+			padding: 1.2rem 1.2rem 1.2rem 3.2rem;
+			/* Left padding for icon */
+			border-radius: 16px;
+			border: 1px solid var(--border);
+			background: var(--input-bg);
+			color: var(--text-main);
+			font-size: 1.1rem;
+			font-family: inherit;
+			transition: all 0.3s ease;
+		}
 
-        .quicklink {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.4rem;
-        }
+		input:focus {
+			background: rgba(0, 0, 0, 0.8);
+			border-color: rgba(255, 255, 255, 0.2);
+			box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05), var(--accent-glow);
+		}
 
-        .quicklink:hover {
-            transform: translateY(-5px);
-            background: var(--accent);
-            color: #000; /* Inverted contrast on hover */
-            border-color: var(--accent);
-            box-shadow: var(--glow-white);
-        }
+		input:focus+.search-icon {
+			color: #fff;
+		}
 
-        button {
-            display: none;
-        }
+		input::placeholder {
+			color: #555;
+			font-weight: 300;
+		}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+		/* --- ENGINE SELECTOR --- */
+		.engine-switcher {
+			margin-bottom: 2.5rem;
+			display: flex;
+			justify-content: center;
+		}
+
+		.select-wrapper {
+			position: relative;
+			display: inline-block;
+		}
+
+		select {
+			appearance: none;
+			padding: 0.6rem 2.5rem 0.6rem 1.2rem;
+			border-radius: 50px;
+			background: rgba(255, 255, 255, 0.03);
+			color: var(--text-muted);
+			border: 1px solid var(--border);
+			font-size: 0.85rem;
+			font-weight: 500;
+			cursor: pointer;
+			font-family: inherit;
+			transition: all 0.2s;
+			text-align: center;
+		}
+
+		select:hover {
+			background: rgba(255, 255, 255, 0.08);
+			color: var(--text-main);
+			border-color: var(--border-focus);
+		}
+
+		select:focus {
+			background: #000;
+			border-color: #fff;
+			color: #fff;
+		}
+
+		/* Custom Arrow for Select */
+		.select-arrow {
+			position: absolute;
+			right: 14px;
+			top: 50%;
+			transform: translateY(-50%);
+			pointer-events: none;
+			font-size: 0.7rem;
+			color: var(--text-muted);
+		}
+
+		/* --- QUICKLINKS --- */
+		.quicklinks {
+			display: flex;
+			justify-content: center;
+			gap: 1.2rem;
+			padding-top: 2rem;
+			border-top: 1px solid var(--border);
+		}
+
+		.quicklink {
+			width: 56px;
+			height: 56px;
+			border-radius: 18px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid var(--border);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-muted);
+			text-decoration: none;
+			transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+			font-size: 1.5rem;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.quicklink::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		.quicklink:hover {
+			transform: translateY(-5px);
+			background: rgba(255, 255, 255, 0.1);
+			color: #fff;
+			border-color: rgba(255, 255, 255, 0.4);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.1);
+		}
+
+		.quicklink:hover::before {
+			opacity: 1;
+		}
+
+		/* Hidden submit button (we use Enter key) */
+		button[type="submit"] {
+			display: none;
+		}
+
+		@keyframes slideUpFade {
+			from {
+				opacity: 0;
+				transform: translateY(30px) scale(0.95);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+		}
+	</style>
 </head>
 
 <body>
 
-    <canvas id="particles-js"></canvas>
+	<canvas id="particles-js"></canvas>
 
-    <div class="container">
-        <h1>Edulearn<span style="font-weight:300; opacity:0.8;">OS</span></h1>
+	<div class="container">
+		<h1>Edu<span style="font-weight:300; color: #aaa;">Violet</span></h1>
+		<div class="subtitle">Secure & Fast Browsing Environment</div>
 
-        <form id="searchForm">
-            <div class="search-box">
-                <input
-                  type="text"
-                  id="searchInput"
-                  placeholder="Search or type a URL..."
-                  autocomplete="off"
-                  required
-                />
-            </div>
+		<form id="searchForm">
+			<div class="search-wrapper">
+				<div class="search-box">
+					<i class="fa-solid fa-magnifying-glass search-icon"></i>
+					<input
+                      type="text"
+                      id="searchInput"
+                      placeholder="Search the web or enter a URL..."
+                      autocomplete="off"
+                      required
+                    />
+                </div>
+				</div>
 
-            <div class="engine-switcher">
-                <select id="engineSelect">
-                  <option value="https://search.brave.com/search?q=" selected>Brave Search</option>
-                  <option value="https://www.google.com/search?q=">Google</option>
-                  <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
-                  <option value="https://www.startpage.com/do/search?q=">Startpage</option>
-                  <option value="https://www.qwant.com/?q=">Qwant</option>
-                </select>
-            </div>
+				<div class="engine-switcher">
+					<div class="select-wrapper">
+						<select id="engineSelect">
+                      <option value="https://search.brave.com/search?q=" selected>Brave Search</option>
+                      <option value="https://www.google.com/search?q=">Google</option>
+                      <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
+                      <option value="https://www.startpage.com/do/search?q=">Startpage</option>
+                      <option value="https://www.qwant.com/?q=">Qwant</option>
+                    </select>
+						<i class="fa-solid fa-chevron-down select-arrow"></i>
+					</div>
+				</div>
 
-            <button type="submit">Go</button>
-        </form>
+				<button type="submit">Go</button>
+		</form>
 
-        <div class="quicklinks">
-            <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
-            <a href="https://astra.pxi-fusion.com" class="quicklink" title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
-            <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
-        </div>
-    </div>
+		<div class="quicklinks">
+			<a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
+			<a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
+			<a href="https://astra.pxi-fusion.com" class="quicklink"
+				title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
+			<a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
+			<a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
+		</div>
+	</div>
 
-    <script>
-        // --- 1. SEARCH LOGIC ---
+	<script>
+		// --- 1. SEARCH LOGIC ---
         const form = document.getElementById("searchForm");
         const input = document.getElementById("searchInput");
         const engine = document.getElementById("engineSelect");
@@ -287,16 +379,23 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.opacity = Math.random() * 0.5 + 0.1;
+                // Slightly larger range for depth perception
+                this.size = Math.random() * 2 + 0.1;
+                // Slower, more ambient movement
+                this.speedX = Math.random() * 0.2 - 0.1;
+                this.speedY = Math.random() * 0.2 - 0.1;
+                // Lower opacity for subtle effect
+                this.opacity = Math.random() * 0.3 + 0.05;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                
+                // Wrap around screen instead of bouncing for smoother look
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
             }
             draw() {
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
@@ -308,9 +407,7 @@
 
         function initParticles() {
             particlesArray = [];
-            // Fixed particle count for OS view (cleaner)
-            const count = 35; 
-            
+            const count = 40; 
             for (let i = 0; i < count; i++) {
                 particlesArray.push(new Particle());
             }
@@ -327,6 +424,7 @@
         }
 
         initParticles();
-    </script>
+	</script>
 </body>
+
 </html>
