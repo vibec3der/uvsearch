@@ -2,324 +2,240 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Eduviolet | Search</title>
-    <meta name="theme-color" content="#050505">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Eduviolet | Search</title>
+	<meta name="theme-color" content="#050505" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* --- CORE VARIABLES --- */
-        :root {
-            --bg-dark: #050505;
-            --surface: rgba(20, 20, 20, 0.6);
-            --border: rgba(255, 255, 255, 0.1);
-            --border-focus: rgba(255, 255, 255, 0.3);
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --accent: #ffffff;
-        }
+	<style>
+		:root {
+			--bg: #050505;
+			--panel: #0e0e0e;
+			--border: #1e1e1e;
+			--border-focus: #3a3a3a;
+			--text: #ffffff;
+			--muted: #9a9a9a;
+		}
 
-        * { box-sizing: border-box; outline: none; margin: 0; padding: 0; }
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-            color: var(--text-main);
-            overflow: hidden;
-            position: relative;
-        }
+		body {
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: var(--bg);
+			color: var(--text);
+		}
 
-        /* --- PARTICLES --- */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.4;
-        }
+		.container {
+			width: 100%;
+			max-width: 420px;
+			padding: 2.25rem;
+			background: var(--panel);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+		}
 
-        /* --- GLASS CONTAINER --- */
-        .container {
-            width: 100%;
-            max-width: 420px;
-            padding: 3rem 2.5rem;
-            border-radius: 24px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
+		h1 {
+			font-size: 1.8rem;
+			font-weight: 600;
+			letter-spacing: -0.5px;
+			margin-bottom: 0.25rem;
+		}
 
-        .container:hover {
-            border-color: rgba(255,255,255,0.15);
-        }
+		.subtitle {
+			font-size: 0.85rem;
+			color: var(--muted);
+			margin-bottom: 2rem;
+		}
 
-        h1 {
-            margin: 0 0 0.5rem;
-            font-weight: 800;
-            font-size: 2.2rem;
-            letter-spacing: -1px;
-            color: #fff;
-        }
-        
-        .subtitle {
-            margin-bottom: 2.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+		/* Search */
+		.search-box {
+			position: relative;
+			margin-bottom: 1.25rem;
+		}
 
-        /* --- SEARCH INPUT --- */
-        .search-wrapper { position: relative; margin-bottom: 1.2rem; }
+		.search-box i {
+			position: absolute;
+			left: 14px;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 0.9rem;
+			color: var(--muted);
+			pointer-events: none;
+		}
 
-        .search-box { position: relative; display: flex; align-items: center; }
+		input {
+			width: 100%;
+			padding: 14px 14px 14px 40px;
+			font-size: 0.95rem;
+			background: #000;
+			color: var(--text);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			transition: border-color 0.15s ease;
+		}
 
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            color: var(--text-muted);
-            pointer-events: none;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
+		input::placeholder {
+			color: #666;
+		}
 
-        input {
-            width: 100%;
-            padding: 16px 1rem 16px 3rem; 
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--text-main);
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
+		input:focus {
+			border-color: var(--border-focus);
+			outline: none;
+		}
 
-        input:focus {
-            background: rgba(0, 0, 0, 0.6);
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
-        }
-        input:focus + .search-icon { color: #fff; }
-        input::placeholder { color: #666; }
+		/* Engine select */
+		.engine {
+			margin-bottom: 1.75rem;
+			display: flex;
+			justify-content: center;
+		}
 
-        /* --- ENGINE SELECTOR --- */
-        .engine-switcher { margin-bottom: 2rem; display: flex; justify-content: center; }
-        .select-wrapper { position: relative; display: inline-block; }
+		select {
+			appearance: none;
+			background: #000;
+			color: var(--muted);
+			border: 1px solid var(--border);
+			padding: 0.6rem 2.2rem 0.6rem 1rem;
+			border-radius: 999px;
+			font-size: 0.8rem;
+			font-weight: 500;
+			cursor: pointer;
+		}
 
-        select {
-            appearance: none;
-            padding: 0.8rem 2.5rem 0.8rem 1.5rem;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
-            text-align: center;
-        }
+		select:focus {
+			color: var(--text);
+			border-color: var(--border-focus);
+			outline: none;
+		}
 
-        select:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            border-color: var(--border-focus);
-        }
+		.engine-wrapper {
+			position: relative;
+		}
 
-        select:focus {
-            background: #000;
-            border-color: #fff;
-            color: #fff;
-        }
+		.engine-wrapper i {
+			position: absolute;
+			right: 12px;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 0.65rem;
+			color: var(--muted);
+			pointer-events: none;
+		}
 
-        .select-arrow {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
+		/* Quicklinks */
+		.quicklinks {
+			display: flex;
+			justify-content: center;
+			gap: 0.75rem;
+			padding-top: 1.25rem;
+			border-top: 1px solid var(--border);
+		}
 
-        /* --- QUICKLINKS --- */
-        .quicklinks {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-        }
+		.quicklink {
+			width: 42px;
+			height: 42px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #000;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			color: var(--muted);
+			text-decoration: none;
+			font-size: 1rem;
+			transition: border-color 0.15s ease, color 0.15s ease;
+		}
 
-        .quicklink {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-size: 1.2rem;
-        }
+		.quicklink:hover {
+			color: var(--text);
+			border-color: var(--border-focus);
+		}
 
-        .quicklink:hover {
-            transform: translateY(-4px);
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.5);
-        }
-
-        button[type="submit"] { display: none; }
-
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-    </style>
+		button[type="submit"] {
+			display: none;
+		}
+	</style>
 </head>
 
 <body>
+	<div class="container">
+		<h1>Edu<span style="font-weight:400;color:#888;">Violet</span></h1>
+		<div class="subtitle">Lightweight & fast</div>
 
-    <canvas id="particles-js"></canvas>
+		<form id="searchForm">
+			<div class="search-box">
+				<i class="fa-solid fa-magnifying-glass"></i>
+				<input
+          id="searchInput"
+          type="text"
+          placeholder="Search or enter URL"
+          autocomplete="off"
+          required
+        />
+      </div>
 
-    <div class="container">
-        <h1>Edu<span style="font-weight:300; color: #888;">Violet</span></h1>
-        <div class="subtitle">Secure & Fast Browsing Environment</div>
+				<div class="engine">
+					<div class="engine-wrapper">
+						<select id="engineSelect">
+            <option value="https://search.brave.com/search?q=" selected>Brave</option>
+            <option value="https://www.google.com/search?q=">Google</option>
+            <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
+            <option value="https://www.startpage.com/do/search?q=">Startpage</option>
+            <option value="https://www.qwant.com/?q=">Qwant</option>
+          </select>
+						<i class="fa-solid fa-chevron-down"></i>
+					</div>
+				</div>
 
-        <form id="searchForm">
-            <div class="search-wrapper">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input
-                      type="text"
-                      id="searchInput"
-                      placeholder="Search or enter URL..."
-                      autocomplete="off"
-                      required
-                    />
-                </div>
-            </div>
+				<button type="submit">Go</button>
+		</form>
 
-            <div class="engine-switcher">
-                <div class="select-wrapper">
-                    <select id="engineSelect">
-                      <option value="https://search.brave.com/search?q=" selected>Brave</option>
-                      <option value="https://www.google.com/search?q=">Google</option>
-                      <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
-                      <option value="https://www.startpage.com/do/search?q=">Startpage</option>
-                      <option value="https://www.qwant.com/?q=">Qwant</option>
-                    </select>
-                    <i class="fa-solid fa-chevron-down select-arrow"></i>
-                </div>
-            </div>
+		<div class="quicklinks">
+			<a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
+			<a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
+			<a href="https://astra.pxi-fusion.com" class="quicklink" title="Gaming"><i class="fas fa-gamepad"></i></a>
+			<a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
+			<a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
+		</div>
+	</div>
 
-            <button type="submit">Go</button>
-        </form>
+	<script>
+		const form = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const engine = document.getElementById("engineSelect");
 
-        <div class="quicklinks">
-            <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
-            <a href="https://astra.pxi-fusion.com" class="quicklink" title="Cloud Gaming"><i class="fas fa-gamepad"></i></a>
-            <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
-        </div>
-    </div>
+    input.focus();
 
-    <script>
-        // --- 1. SEARCH LOGIC ---
-        const form = document.getElementById("searchForm");
-        const input = document.getElementById("searchInput");
-        const engine = document.getElementById("engineSelect");
+    function isURL(text) {
+      return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
+        text.startsWith("http://") ||
+        text.startsWith("https://") ||
+        text.startsWith("about:");
+    }
 
-        input.focus();
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      let value = input.value.trim();
+      if (!value) return;
 
-        function isURL(text) {
-          return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
-                 text.startsWith("http://") ||
-                 text.startsWith("https://") ||
-                 text.startsWith("about:");
-        }
-
-        form.addEventListener("submit", e => {
-          e.preventDefault();
-          let value = input.value.trim();
-          if (!value) return;
-
-          if (isURL(value)) {
-            if (!value.startsWith("http://") && !value.startsWith("https://") && !value.startsWith("about:")) {
-              value = "https://" + value;
-            }
-            window.location.href = value;
-          } else {
-            window.location.href = engine.value + encodeURIComponent(value);
-          }
-        });
-
-        // --- 2. PARTICLES SYSTEM ---
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
-        
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.1;
-                this.speedX = Math.random() * 0.2 - 0.1;
-                this.speedY = Math.random() * 0.2 - 0.1;
-                this.opacity = Math.random() * 0.3 + 0.05;
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particlesArray = [];
-            for (let i = 0; i < 40; i++) particlesArray.push(new Particle());
-            animateParticles();
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animateParticles);
-        }
-        initParticles();
-    </script>
+      if (isURL(value)) {
+        if (!value.startsWith("http")) value = "https://" + value;
+        window.location.href = value;
+      } else {
+        window.location.href = engine.value + encodeURIComponent(value);
+      }
+    });
+	</script>
 </body>
+
 </html>
