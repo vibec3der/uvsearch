@@ -4,52 +4,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Eduviolet</title>
+    <title>Eduviolet | Search</title>
     <meta name="theme-color" content="#050505">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
+        /* --- CORE VARIABLES --- */
         :root {
-            /* THEME VARIABLES */
             --bg-dark: #050505;
             --surface: rgba(20, 20, 20, 0.6);
-            --surface-hover: rgba(40, 40, 40, 0.8);
             --border: rgba(255, 255, 255, 0.1);
             --border-focus: rgba(255, 255, 255, 0.3);
-            
             --text-main: #ffffff;
             --text-muted: #888888;
-            
-            --accent-glow: 0 0 20px rgba(255, 255, 255, 0.15);
-            --input-bg: rgba(0, 0, 0, 0.5);
+            --accent: #ffffff;
         }
 
-        * {
-            box-sizing: border-box;
-            outline: none;
-        }
+        * { box-sizing: border-box; outline: none; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at center, #111111 0%, #000000 100%);
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
             color: var(--text-main);
             overflow: hidden;
             position: relative;
         }
 
-        /* --- BACKGROUND PARTICLES --- */
+        /* --- PARTICLES --- */
         #particles-js {
             position: absolute;
             width: 100%;
@@ -61,138 +48,89 @@
             opacity: 0.4;
         }
 
-        /* --- MAIN CARD --- */
+        /* --- GLASS CONTAINER --- */
         .container {
             width: 100%;
-            /* Reduced Max Width */
             max-width: 420px;
-            /* Reduced Padding */
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
             background: var(--surface);
             border: 1px solid var(--border);
             text-align: center;
             position: relative;
             z-index: 10;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* Elegant top highlight */
-        .container::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            padding: 1px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+        .container:hover {
+            border-color: rgba(255,255,255,0.15);
         }
 
         h1 {
-            margin: 0 0 0.25rem;
+            margin: 0 0 0.5rem;
             font-weight: 800;
-            /* Smaller Font Size */
             font-size: 2.2rem;
             letter-spacing: -1px;
-            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: #fff;
         }
         
         .subtitle {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: var(--text-muted);
-            /* Smaller Font Size */
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        /* --- SEARCH SECTION --- */
-        .search-wrapper {
-            position: relative;
-            margin-bottom: 1rem;
-            transition: transform 0.2s ease;
-        }
-        
-        .search-wrapper:focus-within {
-            transform: scale(1.02);
-        }
+        /* --- SEARCH INPUT --- */
+        .search-wrapper { position: relative; margin-bottom: 1.2rem; }
 
-        .search-box {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+        .search-box { position: relative; display: flex; align-items: center; }
 
         .search-icon {
             position: absolute;
-            left: 15px;
+            left: 16px;
             color: var(--text-muted);
             pointer-events: none;
-            /* Smaller Icon */
-            font-size: 0.9rem;
+            font-size: 1rem;
             transition: color 0.3s;
         }
 
         input {
             width: 100%;
-            /* Tighter Padding */
-            padding: 0.8rem 1rem 0.8rem 2.8rem; 
-            border-radius: 12px;
+            padding: 16px 1rem 16px 3rem; 
+            border-radius: 14px;
             border: 1px solid var(--border);
-            background: var(--input-bg);
+            background: rgba(0, 0, 0, 0.4);
             color: var(--text-main);
-            /* Smaller Text */
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-family: inherit;
             transition: all 0.3s ease;
         }
 
         input:focus {
-            background: rgba(0, 0, 0, 0.8);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05), var(--accent-glow);
+            background: rgba(0, 0, 0, 0.6);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
         }
-        
-        input:focus + .search-icon {
-            color: #fff;
-        }
-
-        input::placeholder {
-            color: #555;
-            font-weight: 300;
-        }
+        input:focus + .search-icon { color: #fff; }
+        input::placeholder { color: #666; }
 
         /* --- ENGINE SELECTOR --- */
-        .engine-switcher {
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .select-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+        .engine-switcher { margin-bottom: 2rem; display: flex; justify-content: center; }
+        .select-wrapper { position: relative; display: inline-block; }
 
         select {
             appearance: none;
-            /* Compact Padding */
-            padding: 0.5rem 2rem 0.5rem 1rem;
+            padding: 0.8rem 2.5rem 0.8rem 1.5rem;
             border-radius: 50px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
             border: 1px solid var(--border);
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
             font-family: inherit;
             transition: all 0.2s;
@@ -200,7 +138,7 @@
         }
 
         select:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-main);
             border-color: var(--border-focus);
         }
@@ -211,14 +149,13 @@
             color: #fff;
         }
 
-        /* Custom Arrow for Select */
         .select-arrow {
             position: absolute;
-            right: 12px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
 
@@ -232,9 +169,8 @@
         }
 
         .quicklink {
-            /* Smaller Links */
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 14px;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
@@ -245,35 +181,17 @@
             text-decoration: none;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             font-size: 1.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quicklink::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
         }
 
         .quicklink:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             background: rgba(255,255,255,0.1);
             color: #fff;
-            border-color: rgba(255,255,255,0.4);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.1);
-        }
-        
-        .quicklink:hover::before {
-            opacity: 1;
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.5);
         }
 
-        /* Hidden submit button (we use Enter key) */
-        button[type="submit"] {
-            display: none;
-        }
+        button[type="submit"] { display: none; }
 
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(20px) scale(0.95); }
@@ -287,7 +205,7 @@
     <canvas id="particles-js"></canvas>
 
     <div class="container">
-        <h1>Edu<span style="font-weight:300; color: #aaa;">Violet</span></h1>
+        <h1>Edu<span style="font-weight:300; color: #888;">Violet</span></h1>
         <div class="subtitle">Secure & Fast Browsing Environment</div>
 
         <form id="searchForm">
@@ -297,7 +215,7 @@
                     <input
                       type="text"
                       id="searchInput"
-                      placeholder="Search..."
+                      placeholder="Search or enter URL..."
                       autocomplete="off"
                       required
                     />
@@ -335,11 +253,9 @@
         const input = document.getElementById("searchInput");
         const engine = document.getElementById("engineSelect");
 
-        // Auto-focus input on load
         input.focus();
 
         function isURL(text) {
-          // Check for common URL patterns
           return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
                  text.startsWith("http://") ||
                  text.startsWith("https://") ||
@@ -357,8 +273,7 @@
             }
             window.location.href = value;
           } else {
-            window.location.href =
-              engine.value + encodeURIComponent(value);
+            window.location.href = engine.value + encodeURIComponent(value);
           }
         });
 
@@ -367,10 +282,7 @@
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
         
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
@@ -378,19 +290,13 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                // Slightly larger range for depth perception
                 this.size = Math.random() * 2 + 0.1;
-                // Slower, more ambient movement
                 this.speedX = Math.random() * 0.2 - 0.1;
                 this.speedY = Math.random() * 0.2 - 0.1;
-                // Lower opacity for subtle effect
                 this.opacity = Math.random() * 0.3 + 0.05;
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                // Wrap around screen instead of bouncing for smoother look
+                this.x += this.speedX; this.y += this.speedY;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.x > canvas.width) this.x = 0;
                 if (this.y < 0) this.y = canvas.height;
@@ -398,30 +304,21 @@
             }
             draw() {
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
 
         function initParticles() {
             particlesArray = [];
-            const count = 40; 
-            for (let i = 0; i < count; i++) {
-                particlesArray.push(new Particle());
-            }
+            for (let i = 0; i < 40; i++) particlesArray.push(new Particle());
             animateParticles();
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
+            particlesArray.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
-
         initParticles();
     </script>
 </body>
