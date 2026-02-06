@@ -10,13 +10,14 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 	<style>
+		/* --- APPLIED THEME FROM EDULEARN --- */
 		:root {
 			--bg: #050505;
-			--panel: #0e0e0e;
-			--border: #1e1e1e;
-			--border-focus: #3a3a3a;
-			--text: #ffffff;
-			--muted: #9a9a9a;
+			--panel: #111111;
+			--border: #222222;
+			--accent: #c026d3; /* Midnight Purple Accent */
+			--text: #f5f5f5;
+			--muted: #a3a3a3;
 		}
 
 		* {
@@ -42,6 +43,7 @@
 			background: var(--panel);
 			border: 1px solid var(--border);
 			border-radius: 12px;
+			box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
 		}
 
 		h1 {
@@ -71,17 +73,23 @@
 			font-size: 0.9rem;
 			color: var(--muted);
 			pointer-events: none;
+			transition: color 0.2s;
+		}
+		
+		/* Input Focus: Icon turns purple */
+		.search-box:focus-within i {
+			color: var(--accent);
 		}
 
 		input {
 			width: 100%;
 			padding: 14px 14px 14px 40px;
 			font-size: 0.95rem;
-			background: #000;
+			background: #0a0a0a; /* Slightly lighter than bg, darker than panel */
 			color: var(--text);
 			border: 1px solid var(--border);
 			border-radius: 8px;
-			transition: border-color 0.15s ease;
+			transition: all 0.2s ease;
 		}
 
 		input::placeholder {
@@ -89,8 +97,9 @@
 		}
 
 		input:focus {
-			border-color: var(--border-focus);
+			border-color: var(--accent); /* Purple border on focus */
 			outline: none;
+			box-shadow: 0 0 0 1px rgba(192, 38, 211, 0.1);
 		}
 
 		/* Engine select */
@@ -102,7 +111,7 @@
 
 		select {
 			appearance: none;
-			background: #000;
+			background: #0a0a0a;
 			color: var(--muted);
 			border: 1px solid var(--border);
 			padding: 0.6rem 2.2rem 0.6rem 1rem;
@@ -110,12 +119,17 @@
 			font-size: 0.8rem;
 			font-weight: 500;
 			cursor: pointer;
+			transition: border-color 0.2s;
 		}
 
 		select:focus {
 			color: var(--text);
-			border-color: var(--border-focus);
+			border-color: var(--accent);
 			outline: none;
+		}
+		
+		select:hover {
+			border-color: #333;
 		}
 
 		.engine-wrapper {
@@ -147,18 +161,19 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: #000;
+			background: #0a0a0a;
 			border: 1px solid var(--border);
 			border-radius: 8px;
 			color: var(--muted);
 			text-decoration: none;
 			font-size: 1rem;
-			transition: border-color 0.15s ease, color 0.15s ease;
+			transition: all 0.2s ease;
 		}
 
 		.quicklink:hover {
 			color: var(--text);
-			border-color: var(--border-focus);
+			border-color: var(--accent); /* Purple border on hover */
+			transform: translateY(-2px);
 		}
 
 		button[type="submit"] {
@@ -169,35 +184,35 @@
 
 <body>
 	<div class="container">
-		<h1>Edu<span style="font-weight:400;color:#888;">Violet</span></h1>
+		<h1>Edu<span style="font-weight:400; color:var(--accent);">Violet</span></h1>
 		<div class="subtitle">Lightweight & fast</div>
 
 		<form id="searchForm">
 			<div class="search-box">
 				<i class="fa-solid fa-magnifying-glass"></i>
 				<input
-          id="searchInput"
-          type="text"
-          placeholder="Search or enter URL"
-          autocomplete="off"
-          required
-        />
-      </div>
+				  id="searchInput"
+				  type="text"
+				  placeholder="Search or enter URL"
+				  autocomplete="off"
+				  required
+				/>
+			</div>
 
-				<div class="engine">
-					<div class="engine-wrapper">
-						<select id="engineSelect">
-            <option value="https://search.brave.com/search?q=" selected>Brave</option>
-            <option value="https://www.google.com/search?q=">Google</option>
-            <option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
-            <option value="https://www.startpage.com/do/search?q=">Startpage</option>
-            <option value="https://www.qwant.com/?q=">Qwant</option>
-          </select>
-						<i class="fa-solid fa-chevron-down"></i>
-					</div>
+			<div class="engine">
+				<div class="engine-wrapper">
+					<select id="engineSelect">
+						<option value="https://search.brave.com/search?q=" selected>Brave</option>
+						<option value="https://www.google.com/search?q=">Google</option>
+						<option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
+						<option value="https://www.startpage.com/do/search?q=">Startpage</option>
+						<option value="https://www.qwant.com/?q=">Qwant</option>
+					</select>
+					<i class="fa-solid fa-chevron-down"></i>
 				</div>
+			</div>
 
-				<button type="submit">Go</button>
+			<button type="submit">Go</button>
 		</form>
 
 		<div class="quicklinks">
@@ -211,30 +226,30 @@
 
 	<script>
 		const form = document.getElementById("searchForm");
-    const input = document.getElementById("searchInput");
-    const engine = document.getElementById("engineSelect");
+		const input = document.getElementById("searchInput");
+		const engine = document.getElementById("engineSelect");
 
-    input.focus();
+		input.focus();
 
-    function isURL(text) {
-      return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
-        text.startsWith("http://") ||
-        text.startsWith("https://") ||
-        text.startsWith("about:");
-    }
+		function isURL(text) {
+			return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
+				text.startsWith("http://") ||
+				text.startsWith("https://") ||
+				text.startsWith("about:");
+		}
 
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      let value = input.value.trim();
-      if (!value) return;
+		form.addEventListener("submit", e => {
+			e.preventDefault();
+			let value = input.value.trim();
+			if (!value) return;
 
-      if (isURL(value)) {
-        if (!value.startsWith("http")) value = "https://" + value;
-        window.location.href = value;
-      } else {
-        window.location.href = engine.value + encodeURIComponent(value);
-      }
-    });
+			if (isURL(value)) {
+				if (!value.startsWith("http")) value = "https://" + value;
+				window.location.href = value;
+			} else {
+				window.location.href = engine.value + encodeURIComponent(value);
+			}
+		});
 	</script>
 </body>
 
