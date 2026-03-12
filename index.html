@@ -2,433 +2,400 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>New Tab</title>
-	<meta name="theme-color" content="#1e1e20" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>proxyfox</title>
+    <meta name="theme-color" content="#1c1b22" />
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-	<style>
-        /* --- IMPORTED THEME SYSTEM FROM EDULEARN LITE --- */
+    <style>
+        /* --- FIREFOX PROTON DARK THEME --- */
         :root {
-            /* Default: Midnight Indigo */
-            --bg-color: #09090b;
-            --bg-panel: rgba(18, 18, 23, 0.85);
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --accent: #6366f1;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-glow: rgba(99, 102, 241, 0.15);
-            --grid-color: rgba(255, 255, 255, 0.03);
+            --bg-color: #1c1b22; /* Firefox default dark background */
+            --bg-panel: #2b2a33; /* Firefox element background */
+            --text-main: #fbfbfe; /* Firefox white */
+            --text-muted: #8f8f9d; /* Firefox gray */
+            --accent: #ff7139; /* Firefox brand orange */
+            --focus-ring: #00ddff; /* Firefox blue focus outline */
+            --card-bg: #42414d; /* Firefox hover state */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --success: #30e60b; /* Secure green */
         }
 
+        /* Kept theme fallbacks in case your sync needs them */
         body.theme-mocha {
             --bg-color: #1e1e2e;
-            --bg-panel: rgba(30, 30, 46, 0.85);
+            --bg-panel: rgba(30, 30, 46, 0.7);
             --text-main: #cdd6f4;
             --text-muted: #a6adc8;
-            --accent: #cba6f7;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --accent-glow: rgba(203, 166, 247, 0.15);
-            --grid-color: rgba(255, 255, 255, 0.04);
+            --accent: #ff7139;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --focus-ring: #cba6f7;
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
         body.theme-inverted {
-            --bg-color: #f4f4f5;
-            --bg-panel: rgba(244, 244, 245, 0.85);
-            --text-main: #18181b;
-            --text-muted: #52525b;
-            --accent: #4f46e5;
-            --card-bg: rgba(0, 0, 0, 0.03);
-            --border-color: rgba(0, 0, 0, 0.08);
-            --accent-glow: rgba(79, 70, 229, 0.15);
-            --grid-color: rgba(0, 0, 0, 0.04);
+            --bg-color: #f9f9fb;
+            --bg-panel: #ffffff;
+            --text-main: #15141a;
+            --text-muted: #5b5b66;
+            --accent: #ff7139;
+            --card-bg: #ededf0;
+            --focus-ring: #0060df;
+            --border-color: rgba(0, 0, 0, 0.1);
         }
 
-		* {
-			box-sizing: border-box;
-			margin: 0;
-			padding: 0;
-		}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
 
-		body {
-			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: var(--bg-color);
-			color: var(--text-main);
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
             overflow: hidden;
-
-            /* The Static Background Grid */
-            background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 30px 30px;
-		}
-
-        /* --- SQUARE PARTICLES --- */
-        #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.6;
+            /* Subdued, clean background - removed the heavy grid for the sleek Firefox look */
+            background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 60%);
         }
 
-		.container {
-			width: 100%;
-			max-width: 480px;
-			padding: 2.5rem;
-			background: var(--bg-panel);
-			backdrop-filter: blur(16px);
-			-webkit-backdrop-filter: blur(16px);
-			border: 1px solid var(--border-color);
-			border-radius: 16px;
-			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-			text-align: center;
+        /* --- SECURE CORNER BADGE --- */
+        .secure-badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(48, 230, 11, 0.1);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(48, 230, 11, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        .secure-badge i {
+            font-size: 0.8rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
             position: relative;
             z-index: 10;
-		}
+        }
 
-		h1 {
-			font-size: 2rem;
-			font-weight: 600;
-			letter-spacing: -0.5px;
-			margin-bottom: 0.25rem;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 12px;
-		}
-		
-		h1 i {
-			color: var(--accent);
-			font-size: 2.2rem;
-		}
+        /* --- FAKE TABS (Proton Style) --- */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
 
-		.subtitle {
-			font-size: 0.9rem;
-			color: var(--text-muted);
-			margin-bottom: 2rem;
-		}
+        .tab {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-		/* Search */
-		.search-box {
-			position: relative;
-			margin-bottom: 1.25rem;
-		}
+        .tab:hover {
+            color: var(--text-main);
+            background: var(--card-bg);
+        }
 
-		.search-box i {
-			position: absolute;
-			left: 18px;
-			top: 50%;
-			transform: translateY(-50%);
-			font-size: 1rem;
-			color: var(--text-muted);
-			pointer-events: none;
-			transition: color 0.2s;
-		}
-		
-		/* Input Focus: Icon turns to Accent Color */
-		.search-box:focus-within i {
-			color: var(--accent);
-		}
-
-		input {
-			width: 100%;
-			padding: 16px 16px 16px 48px;
-			font-size: 1rem;
-			background: var(--card-bg);
-			color: var(--text-main);
-			border: 1px solid var(--border-color);
-			border-radius: 999px;
-			transition: all 0.2s ease;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-		}
-
-		input::placeholder {
-			color: var(--text-muted);
-            opacity: 0.7;
-		}
-
-		input:focus {
-			border-color: var(--accent); 
-			outline: none;
-			box-shadow: 0 0 0 3px var(--accent-glow);
+        .tab.active {
+            color: var(--text-main);
             background: var(--bg-panel);
-		}
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+        }
 
-		/* Engine select */
-		.engine {
-			margin-bottom: 2rem;
-			display: flex;
-			justify-content: center;
-		}
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-		select {
-			appearance: none;
-			background: transparent;
-			color: var(--text-muted);
-			border: 1px solid transparent;
-			padding: 0.4rem 1.8rem 0.4rem 0.8rem;
-			border-radius: 6px;
-			font-size: 0.85rem;
-			font-weight: 500;
-			cursor: pointer;
-			transition: all 0.2s;
-		}
+        h1 i {
+            color: var(--accent);
+            font-size: 1.6rem;
+        }
 
-		select:focus {
-			color: var(--text-main);
-			outline: none;
-		}
-		
-		select:hover {
-			color: var(--text-main);
-			background: var(--card-bg);
-		}
+        /* Search */
+        .search-box {
+            position: relative;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 8px; /* Firefox usually uses slightly sharper corners */
+        }
 
-		.engine-wrapper {
-			position: relative;
-		}
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+        
+        .search-box:focus-within i {
+            color: var(--text-main);
+        }
 
-		.engine-wrapper i {
-			position: absolute;
-			right: 8px;
-			top: 50%;
-			transform: translateY(-50%);
-			font-size: 0.65rem;
-			color: var(--text-muted);
-			pointer-events: none;
-		}
+        input {
+            width: 100%;
+            padding: 14px 16px 14px 40px;
+            font-size: 0.9rem;
+            background: var(--bg-panel);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; 
+            transition: all 0.2s ease;
+        }
 
-		/* Quicklinks */
-		.quicklinks {
-			display: flex;
-			justify-content: center;
-			gap: 1rem;
-			padding-top: 1.5rem;
-			border-top: 1px solid var(--border-color);
-		}
+        input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.8;
+            font-weight: 400;
+        }
 
-		.quicklink {
-			width: 48px;
-			height: 48px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background: var(--card-bg);
-			border: 1px solid var(--border-color);
-			border-radius: 12px;
-			color: var(--text-muted);
-			text-decoration: none;
-			font-size: 1.2rem;
-			transition: all 0.2s ease;
-		}
+        input:focus {
+            border-color: var(--focus-ring); 
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 221, 255, 0.3); /* Electric blue glow */
+            background: var(--bg-color);
+        }
 
-		.quicklink:hover {
-			color: var(--text-main);
-			border-color: var(--accent);
-			background: var(--accent-glow); 
-			transform: translateY(-3px);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-		}
+        /* Engine select */
+        .engine {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.75rem;
+        }
 
-		button[type="submit"] {
-			display: none;
-		}
-	</style>
+        select {
+            appearance: none;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            padding: 0.3rem 1.4rem 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        select:focus {
+            color: var(--text-main);
+            outline: none;
+        }
+        
+        select:hover {
+            color: var(--text-main);
+            background: var(--card-bg);
+        }
+
+        .engine-wrapper {
+            position: relative;
+        }
+
+        .engine-wrapper i {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Quicklinks */
+        .quicklinks {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .quicklink {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .quicklink:hover {
+            color: var(--text-main);
+            background: var(--card-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        button[type="submit"] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="particles-js"></canvas>
+    <div class="secure-badge">
+        <i class="fa-solid fa-lock"></i> Proxy Active
+    </div>
 
-	<div class="container">
-		<h1><i class="fa-brands fa-brave"></i> Brave</h1>
-		<div class="subtitle">Secure, fast & private.</div>
-
-		<form id="searchForm">
-			<div class="search-box">
-				<i class="fa-solid fa-magnifying-glass"></i>
-				<input
-				  id="searchInput"
-				  type="text"
-				  placeholder="Search the web or type a URL"
-				  autocomplete="off"
-				  required
-				/>
-			</div>
-
-			<div class="engine">
-				<div class="engine-wrapper">
-					<select id="engineSelect">
-						<option value="https://search.brave.com/search?q=" selected>Brave Search</option>
-						<option value="https://www.google.com/search?q=">Google</option>
-						<option value="https://html.duckduckgo.com/html?q=">DuckDuckGo</option>
-						<option value="https://www.startpage.com/do/search?q=">Startpage</option>
-						<option value="https://www.qwant.com/?q=">Qwant</option>
-					</select>
-					<i class="fa-solid fa-chevron-down"></i>
-				</div>
-			</div>
-
-			<button type="submit">Go</button>
-		</form>
-
-		<div class="quicklinks">
-			<a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
-			<a href="https://vapor.my/page/music" class="quicklink" title="Music"><i class="fa-solid fa-music"></i></a>
-			<a href="https://astra.pxi-fusion.com" class="quicklink" title="Gaming"><i class="fas fa-gamepad"></i></a>
-			<a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-			<a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
-		</div>
-	</div>
-
-	<script>
-        // --- COOL SPINNING SQUARES ANIMATION ---
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
+    <div class="container">
         
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        <div class="tabs" id="tabContainer">
+            <button class="tab active">Proxy</button>
+            <button class="tab">Web</button>
+            <button class="tab">Media</button>
+            <button class="tab">Settings</button>
+        </div>
 
-        class SquareParticle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 8 + 3; // Random sizes
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.opacity = Math.random() * 0.4 + 0.05;
-                this.angle = Math.random() * 360;
-                this.spin = Math.random() * 0.02 - 0.01; // Rotation speed
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.angle += this.spin;
-                
-                // Wrap around edges seamlessly
-                if (this.x < -20) this.x = canvas.width + 20;
-                if (this.x > canvas.width + 20) this.x = -20;
-                if (this.y < -20) this.y = canvas.height + 20;
-                if (this.y > canvas.height + 20) this.y = -20;
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle);
-                ctx.globalAlpha = this.opacity;
-                // Grab the current text-muted color for the squares so it matches themes
-                ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text-muted').trim() || '#ffffff';
-                // Draw square centered on coordinates
-                ctx.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
-                ctx.restore();
-            }
-        }
+        <h1><i class="fa-brands fa-firefox-browser"></i> proxyfox</h1>
 
-        function initParticles() {
-            particlesArray = [];
-            const count = 45; // Amount of squares floating
-            for (let i = 0; i < count; i++) {
-                particlesArray.push(new SquareParticle());
-            }
-            animateParticles();
-        }
+        <form id="searchForm">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="Enter a URL or search securely..."
+                  autocomplete="off"
+                  required
+                />
+            </div>
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            requestAnimationFrame(animateParticles);
-        }
+            <div class="engine">
+                <div class="engine-wrapper">
+                    <select id="engineSelect">
+                        <option value="https://duckduckgo.com/?q=" selected>DuckDuckGo (Strict)</option>
+                        <option value="https://www.google.com/search?q=">Google</option>
+                        <option value="https://search.brave.com/search?q=">Brave Search</option>
+                        <option value="https://www.startpage.com/do/search?q=">Startpage</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
 
-        initParticles();
+            <button type="submit">Go</button>
+        </form>
+
+        <div class="quicklinks">
+            <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
+            <a href="#" class="quicklink" title="Proxy Logs"><i class="fa-solid fa-terminal"></i></a>
+            <a href="#" class="quicklink" title="Clear Cache"><i class="fa-solid fa-trash-can"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // --- FAKE TABS LOGIC ---
+        const tabs = document.querySelectorAll('.tab');
+        const input = document.getElementById("searchInput");
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                input.focus();
+            });
+        });
 
         // --- SEARCH LOGIC ---
-		const form = document.getElementById("searchForm");
-		const input = document.getElementById("searchInput");
-		const engine = document.getElementById("engineSelect");
+        const form = document.getElementById("searchForm");
+        const engine = document.getElementById("engineSelect");
 
-		input.focus();
+        input.focus();
 
-		function isURL(text) {
-			return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
-				text.startsWith("http://") ||
-				text.startsWith("https://") ||
-				text.startsWith("about:");
-		}
+        function isURL(text) {
+            return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(text) ||
+                text.startsWith("http://") ||
+                text.startsWith("https://") ||
+                text.startsWith("about:");
+        }
 
-		form.addEventListener("submit", e => {
-			e.preventDefault();
-			let value = input.value.trim();
-			if (!value) return;
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            let value = input.value.trim();
+            if (!value) return;
 
-			if (isURL(value)) {
-				if (!value.startsWith("http")) value = "https://" + value;
-				window.location.href = value;
-			} else {
-				window.location.href = engine.value + encodeURIComponent(value);
-			}
-		});
+            if (isURL(value)) {
+                if (!value.startsWith("http")) value = "https://" + value;
+                window.location.href = value;
+            } else {
+                window.location.href = engine.value + encodeURIComponent(value);
+            }
+        });
 
         // --- EDULEARN THEME SYNC ---
         function syncEdulearnTheme() {
             try {
-                // Fetch settings from local storage
                 const savedSettings = JSON.parse(localStorage.getItem('el_settings')) || {};
                 const theme = savedSettings.theme || 'default';
                 const bgUrl = savedSettings.bgUrl || '';
 
-                // Apply correct theme class
                 document.body.className = theme === 'default' ? '' : `theme-${theme}`;
 
-                // Apply custom background image if set
                 if (bgUrl) {
                     document.body.style.backgroundImage = `url('${bgUrl}')`;
                     document.body.style.backgroundSize = 'cover';
                     document.body.style.backgroundPosition = 'center';
                     document.body.style.backgroundAttachment = 'fixed';
                 } else {
-                    // Reset to grid pattern if no custom background is applied
-                    document.body.style.backgroundImage = `
-                        linear-gradient(var(--grid-color) 1px, transparent 1px),
-                        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px)
-                    `;
-                    document.body.style.backgroundSize = '30px 30px';
+                    // Restored the clean, subtle radial gradient instead of the messy grid
+                    document.body.style.backgroundImage = `radial-gradient(circle at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 60%)`;
                 }
             } catch (err) {
                 console.error("Theme sync failed:", err);
             }
         }
 
-        // Run theme sync immediately 
         syncEdulearnTheme();
 
-        // Listen for changes across other pages/frames
         window.addEventListener('storage', (e) => {
             if (e.key === 'el_settings') {
                 syncEdulearnTheme();
             }
         });
-	</script>
+    </script>
 </body>
 
 </html>
