@@ -2,335 +2,372 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>proxyfox</title>
-    <meta name="theme-color" content="#1c1b22" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Unemployment central</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;500&display=swap"
+		rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<style>
+		:root {
+			--bg-color: #0d0f10;
+			--card-bg: #161819;
+			--text-main: #ffffff;
+			--text-muted: #9ba1a6;
+			--accent-glow: #a8ffdc;
+			--border-color: rgba(255, 255, 255, 0.05);
+		}
 
-    <style>
-        /* --- FIREFOX PROTON DARK THEME --- */
-        :root {
-            --bg-color: #1c1b22; /* Firefox default dark background */
-            --bg-panel: #2b2a33; /* Firefox element background */
-            --text-main: #fbfbfe; /* Firefox white */
-            --text-muted: #8f8f9d; /* Firefox gray */
-            --accent: #ff7139; /* Firefox brand orange */
-            --focus-ring: #00ddff; /* Firefox blue focus outline */
-            --card-bg: #42414d; /* Firefox hover state */
-            --border-color: rgba(255, 255, 255, 0.1);
-            --success: #30e60b; /* Secure green */
-        }
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			font-family: "Inter", sans-serif;
+		}
 
-        /* Kept theme fallbacks in case your sync needs them */
-        body.theme-mocha {
-            --bg-color: #1e1e2e;
-            --bg-panel: rgba(30, 30, 46, 0.7);
-            --text-main: #cdd6f4;
-            --text-muted: #a6adc8;
-            --accent: #ff7139;
-            --card-bg: rgba(255, 255, 255, 0.04);
-            --focus-ring: #cba6f7;
-            --border-color: rgba(255, 255, 255, 0.08);
-        }
+		body {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: var(--bg-color);
+			color: var(--text-main);
+			background-image:
+				radial-gradient(circle at 20% 30%, rgba(40, 50, 50, 0.15) 0%, transparent 40%),
+				radial-gradient(circle at 80% 70%, rgba(30, 40, 40, 0.15) 0%, transparent 40%);
+			overflow-x: hidden;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
 
-        body.theme-inverted {
-            --bg-color: #f9f9fb;
-            --bg-panel: #ffffff;
-            --text-main: #15141a;
-            --text-muted: #5b5b66;
-            --accent: #ff7139;
-            --card-bg: #ededf0;
-            --focus-ring: #0060df;
-            --border-color: rgba(0, 0, 0, 0.1);
-        }
+		/* Scaled down container */
+		.container {
+			width: 100%;
+			max-width: 460px;
+			/* Made it significantly smaller */
+			text-align: center;
+			padding: 20px;
+		}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+		/* --- TABS (From Proxyfox) --- */
+		.tabs {
+			display: flex;
+			gap: 6px;
+			margin-bottom: 20px;
+			justify-content: center;
+		}
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow: hidden;
-            /* Subdued, clean background - removed the heavy grid for the sleek Firefox look */
-            background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 60%);
-        }
+		.tab {
+			background: transparent;
+			border: none;
+			color: var(--text-muted);
+			font-size: 0.75rem;
+			font-weight: 500;
+			padding: 4px 12px;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
 
-        /* --- SECURE CORNER BADGE --- */
-        .secure-badge {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(48, 230, 11, 0.1);
-            color: var(--success);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            border: 1px solid rgba(48, 230, 11, 0.2);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            pointer-events: none;
-        }
+		.tab:hover,
+		.tab.active {
+			color: var(--text-main);
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+		}
 
-        .secure-badge i {
-            font-size: 0.8rem;
-        }
+		/* --- LOGO & QUOTES --- */
+		.logo {
+			font-family: 'Dancing Script', cursive;
+			font-size: 2.8rem;
+			/* Scaled down */
+			margin-bottom: 0.2rem;
+			color: #eee;
+		}
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
-        }
+		.quote {
+			color: var(--text-muted);
+			font-size: 0.85rem;
+			font-style: italic;
+			margin-bottom: 1.5rem;
+		}
 
-        /* --- FAKE TABS (Proton Style) --- */
-        .tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
+		/* --- SEARCH --- */
+		.search-container {
+			position: relative;
+			margin-bottom: 0.5rem;
+		}
 
-        .tab {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 6px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+		input {
+			width: 100%;
+			padding: 12px 16px;
+			/* Scaled down */
+			font-size: 0.95rem;
+			background: #1c1e1f;
+			color: white;
+			border: 1px solid #333;
+			border-radius: 8px;
+			outline: none;
+			transition: all 0.3s ease;
+		}
 
-        .tab:hover {
-            color: var(--text-main);
-            background: var(--card-bg);
-        }
+		.search-underline {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+			box-shadow: 0 0 10px var(--accent-glow);
+			opacity: 0.5;
+			transition: opacity 0.3s;
+		}
 
-        .tab.active {
-            color: var(--text-main);
-            background: var(--bg-panel);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-        }
+		input:focus+.search-underline {
+			opacity: 1;
+		}
 
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 500;
-            letter-spacing: -0.5px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+		/* --- ENGINE SELECT (From Proxyfox) --- */
+		.engine {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 1.5rem;
+		}
 
-        h1 i {
-            color: var(--accent);
-            font-size: 1.6rem;
-        }
+		.engine-wrapper {
+			position: relative;
+		}
 
-        /* Search */
-        .search-box {
-            position: relative;
-            margin-bottom: 0.75rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            border-radius: 8px; /* Firefox usually uses slightly sharper corners */
-        }
+		select {
+			appearance: none;
+			background: transparent;
+			color: var(--text-muted);
+			border: 1px solid transparent;
+			padding: 0.3rem 1.4rem 0.3rem 0.6rem;
+			border-radius: 4px;
+			font-size: 0.75rem;
+			cursor: pointer;
+			outline: none;
+		}
 
-        .search-box i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            pointer-events: none;
-            transition: color 0.2s;
-        }
-        
-        .search-box:focus-within i {
-            color: var(--text-main);
-        }
+		select:hover,
+		select:focus {
+			color: var(--text-main);
+			background: var(--card-bg);
+		}
 
-        input {
-            width: 100%;
-            padding: 14px 16px 14px 40px;
-            font-size: 0.9rem;
-            background: var(--bg-panel);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 8px; 
-            transition: all 0.2s ease;
-        }
+		.engine-wrapper i {
+			position: absolute;
+			right: 6px;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 0.6rem;
+			color: var(--text-muted);
+			pointer-events: none;
+		}
 
-        input::placeholder {
-            color: var(--text-muted);
-            opacity: 0.8;
-            font-weight: 400;
-        }
+		button[type="submit"] {
+			display: none;
+		}
 
-        input:focus {
-            border-color: var(--focus-ring); 
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(0, 221, 255, 0.3); /* Electric blue glow */
-            background: var(--bg-color);
-        }
+		/* --- APP GRID --- */
+		.grid-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0.8rem;
+			padding: 0 5px;
+		}
 
-        /* Engine select */
-        .engine {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.75rem;
-        }
+		.grid-header span {
+			font-size: 0.9rem;
+			color: #ccc;
+		}
 
-        select {
-            appearance: none;
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid transparent;
-            padding: 0.3rem 1.4rem 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+		.edit-btn {
+			background: #1c1e1f;
+			border: 1px solid #333;
+			color: var(--text-muted);
+			padding: 4px 12px;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.8rem;
+		}
 
-        select:focus {
-            color: var(--text-main);
-            outline: none;
-        }
-        
-        select:hover {
-            color: var(--text-main);
-            background: var(--card-bg);
-        }
+		.app-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 10px;
+			/* Scaled down */
+		}
 
-        .engine-wrapper {
-            position: relative;
-        }
+		.app-card {
+			background: var(--card-bg);
+			border-radius: 10px;
+			padding: 14px 8px;
+			/* Scaled down */
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			transition: transform 0.2s, background 0.2s;
+			border: 1px solid transparent;
+		}
 
-        .engine-wrapper i {
-            position: absolute;
-            right: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            pointer-events: none;
-        }
+		.app-card:hover {
+			background: #1e2021;
+			transform: translateY(-2px);
+			border-color: #333;
+		}
 
-        /* Quicklinks */
-        .quicklinks {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-        }
+		.app-card i {
+			font-size: 1.4rem;
+			/* Scaled down */
+			margin-bottom: 8px;
+		}
 
-        .quicklink {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
+		.app-card span {
+			font-size: 0.75rem;
+			/* Scaled down */
+			color: var(--text-muted);
+		}
 
-        .quicklink:hover {
-            color: var(--text-main);
-            background: var(--card-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
+		/* Specific Icon Colors */
+		.fa-youtube {
+			color: #ff0000;
+		}
 
-        button[type="submit"] {
-            display: none;
-        }
-    </style>
+		.fa-github {
+			color: #ffffff;
+		}
+
+		.fa-discord {
+			color: #5865F2;
+		}
+
+		.fa-reddit {
+			color: #ff4500;
+		}
+
+		.fa-google {
+			color: #4285F4;
+		}
+
+		.fa-x-twitter {
+			color: #ffffff;
+		}
+
+		.fa-tiktok {
+			color: #ffffff;
+		}
+
+		.fa-cube {
+			color: #ffffff;
+		}
+
+		.nvidia {
+			color: #76b900;
+		}
+	</style>
 </head>
 
 <body>
-    <div class="secure-badge">
-        <i class="fa-solid fa-lock"></i> Proxy Active
-    </div>
+	<div class="container">
+		<div class="tabs" id="tabContainer">
+			<button class="tab active">Proxy</button>
+			<button class="tab">Web</button>
+			<button class="tab">Media</button>
+			<button class="tab">Settings</button>
+		</div>
 
-    <div class="container">
-        
-        <div class="tabs" id="tabContainer">
-            <button class="tab active">Proxy</button>
-            <button class="tab">Web</button>
-            <button class="tab">Media</button>
-            <button class="tab">Settings</button>
-        </div>
+		<div class="logo">Unemployment central</div>
+		<div class="quote" id="quoteText">"loading next distraction..."</div>
 
-        <h1><i class="fa-brands fa-firefox-browser"></i> proxyfox</h1>
+		<form id="searchForm">
+			<div class="search-container">
+				<input type="text" placeholder="search or enter url..." id="searchInput" autocomplete="off" required>
+				<div class="search-underline"></div>
+			</div>
 
-        <form id="searchForm">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input
-                  id="searchInput"
-                  type="text"
-                  placeholder="Enter a URL or search securely..."
-                  autocomplete="off"
-                  required
-                />
-            </div>
-
-            <div class="engine">
-                <div class="engine-wrapper">
-                    <select id="engineSelect">
+			<div class="engine">
+				<div class="engine-wrapper">
+					<select id="engineSelect">
                         <option value="https://duckduckgo.com/?q=" selected>DuckDuckGo (Strict)</option>
                         <option value="https://www.google.com/search?q=">Google</option>
                         <option value="https://search.brave.com/search?q=">Brave Search</option>
                         <option value="https://www.startpage.com/do/search?q=">Startpage</option>
                     </select>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-            </div>
+					<i class="fa-solid fa-chevron-down"></i>
+				</div>
+			</div>
+			<button type="submit">Go</button>
+		</form>
 
-            <button type="submit">Go</button>
-        </form>
+		<div class="grid-header">
+			<span>Quick apps</span>
+			<button class="edit-btn">Edit</button>
+		</div>
 
-        <div class="quicklinks">
-            <a href="https://youtube.com" class="quicklink" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://github.com" class="quicklink" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://discord.com" class="quicklink" title="Discord"><i class="fab fa-discord"></i></a>
-            <a href="#" class="quicklink" title="Proxy Logs"><i class="fa-solid fa-terminal"></i></a>
-            <a href="#" class="quicklink" title="Clear Cache"><i class="fa-solid fa-trash-can"></i></a>
-        </div>
-    </div>
+		<div class="app-grid">
+			<a href="https://youtube.com" class="app-card">
+				<i class="fab fa-youtube"></i><span>YouTube</span>
+			</a>
+			<a href="https://github.com" class="app-card">
+				<i class="fab fa-github"></i><span>GitHub</span>
+			</a>
+			<a href="https://discord.com" class="app-card">
+				<i class="fab fa-discord"></i><span>Discord</span>
+			</a>
+			<a href="https://reddit.com" class="app-card">
+				<i class="fab fa-reddit"></i><span>Reddit</span>
+			</a>
+			<a href="https://google.com" class="app-card">
+				<i class="fab fa-google"></i><span>Google</span>
+			</a>
+			<a href="https://twitter.com" class="app-card">
+				<i class="fab fa-x-twitter"></i><span>Twitter/X</span>
+			</a>
+			<a href="#" class="app-card">
+				<i class="fa-solid fa-film"></i><span>Movies</span>
+			</a>
+			<a href="#" class="app-card">
+				<i class="fa-solid fa-gamepad"></i><span>Games</span>
+			</a>
+			<a href="https://tiktok.com" class="app-card">
+				<i class="fab fa-tiktok"></i><span>TikTok</span>
+			</a>
+			<a href="https://roblox.com" class="app-card">
+				<i class="fa-solid fa-cube"></i><span>Roblox</span>
+			</a>
+			<a href="#" class="app-card">
+				<i class="fa-solid fa-eye nvidia"></i><span>GeForce</span>
+			</a>
+			<a href="#" class="app-card">
+				<i class="fa-solid fa-wand-magic-sparkles"></i><span>AI</span>
+			</a>
+		</div>
+	</div>
 
-    <script>
-        // --- FAKE TABS LOGIC ---
+	<script>
+		// --- RANDOM QUOTES ---
+        const quotes = [
+            '"master of unemployment"',
+            '"professional time waster"',
+            '"dodging responsibilities since 2024"',
+            '"CEO of free time"',
+            '"currently avoiding reality"',
+            '"degree in procrastination"'
+        ];
+        document.getElementById('quoteText').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+        // --- PROXYFOX LOGIC ---
         const tabs = document.querySelectorAll('.tab');
         const input = document.getElementById("searchInput");
         
+        // Tab switching focuses input
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -339,7 +376,7 @@
             });
         });
 
-        // --- SEARCH LOGIC ---
+        // Search Form Logic
         const form = document.getElementById("searchForm");
         const engine = document.getElementById("engineSelect");
 
@@ -357,6 +394,7 @@
             let value = input.value.trim();
             if (!value) return;
 
+            // Direct URL vs Search Query routing
             if (isURL(value)) {
                 if (!value.startsWith("http")) value = "https://" + value;
                 window.location.href = value;
@@ -365,14 +403,12 @@
             }
         });
 
-        // --- EDULEARN THEME SYNC ---
+        // --- THEME SYNC (From proxyfox) ---
         function syncEdulearnTheme() {
             try {
                 const savedSettings = JSON.parse(localStorage.getItem('el_settings')) || {};
                 const theme = savedSettings.theme || 'default';
                 const bgUrl = savedSettings.bgUrl || '';
-
-                document.body.className = theme === 'default' ? '' : `theme-${theme}`;
 
                 if (bgUrl) {
                     document.body.style.backgroundImage = `url('${bgUrl}')`;
@@ -380,8 +416,7 @@
                     document.body.style.backgroundPosition = 'center';
                     document.body.style.backgroundAttachment = 'fixed';
                 } else {
-                    // Restored the clean, subtle radial gradient instead of the messy grid
-                    document.body.style.backgroundImage = `radial-gradient(circle at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 60%)`;
+                    document.body.style.backgroundImage = `radial-gradient(circle at 20% 30%, rgba(40, 50, 50, 0.15) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(30, 40, 40, 0.15) 0%, transparent 40%)`;
                 }
             } catch (err) {
                 console.error("Theme sync failed:", err);
@@ -389,13 +424,10 @@
         }
 
         syncEdulearnTheme();
-
         window.addEventListener('storage', (e) => {
-            if (e.key === 'el_settings') {
-                syncEdulearnTheme();
-            }
+            if (e.key === 'el_settings') syncEdulearnTheme();
         });
-    </script>
+	</script>
 </body>
 
 </html>
